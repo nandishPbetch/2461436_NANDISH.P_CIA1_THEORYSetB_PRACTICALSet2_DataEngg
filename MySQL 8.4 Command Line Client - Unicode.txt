@@ -1,0 +1,127 @@
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.4.9 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE Hospital_Patient;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> USE Hospital_Patient;
+Database changed
+mysql> CREATE TABLE patients (
+    ->     patient_id INT PRIMARY KEY,
+    ->     name VARCHAR(100),
+    ->     disease VARCHAR(100),
+    ->     age INT,
+    ->     city VARCHAR(100),
+    ->     phone VARCHAR(15)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW TABLES;
++----------------------------+
+| Tables_in_hospital_patient |
++----------------------------+
+| patients                   |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> DESC patients;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| patient_id | int          | NO   | PRI | NULL    |       |
+| name       | varchar(100) | YES  |     | NULL    |       |
+| disease    | varchar(100) | YES  |     | NULL    |       |
+| age        | int          | YES  |     | NULL    |       |
+| city       | varchar(100) | YES  |     | NULL    |       |
+| phone      | varchar(15)  | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> ALTER TABLE patients
+    -> ADD remarks VARCHAR(100);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE patients
+    -> MODIFY age SMALLINT;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE patients
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE patients_backup LIKE patients;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> RENAME TABLE patients_backup TO patients_archive;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> TRUNCATE TABLE patients_archive;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DROP TABLE patients_archive;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO patients
+    -> (patient_id, name, disease, age, city, phone)
+    -> VALUES
+    -> (101, 'Rahul', 'Fever', 25, 'Bangalore', '9876543210');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO patients
+    -> (patient_id, name, disease, age, city, phone)
+    -> VALUES
+    -> (102, 'Anjali', 'Diabetes', 40, 'Chennai', '9876543211'),
+    -> (103, 'Ramesh', 'Asthma', 35, 'Hyderabad', '9876543212'),
+    -> (104, 'Priya', 'Cold', 22, 'Mumbai', '9876543213');
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM patients;
++------------+--------+----------+------+-----------+------------+---------+
+| patient_id | name   | disease  | age  | city      | phone      | remarks |
++------------+--------+----------+------+-----------+------------+---------+
+|        101 | Rahul  | Fever    |   25 | Bangalore | 9876543210 | NULL    |
+|        102 | Anjali | Diabetes |   40 | Chennai   | 9876543211 | NULL    |
+|        103 | Ramesh | Asthma   |   35 | Hyderabad | 9876543212 | NULL    |
+|        104 | Priya  | Cold     |   22 | Mumbai    | 9876543213 | NULL    |
++------------+--------+----------+------+-----------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT name, age
+    -> FROM patients;
++--------+------+
+| name   | age  |
++--------+------+
+| Rahul  |   25 |
+| Anjali |   40 |
+| Ramesh |   35 |
+| Priya  |   22 |
++--------+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT disease
+    -> FROM patients;
++----------+
+| disease  |
++----------+
+| Fever    |
+| Diabetes |
+| Asthma   |
+| Cold     |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> ^P
